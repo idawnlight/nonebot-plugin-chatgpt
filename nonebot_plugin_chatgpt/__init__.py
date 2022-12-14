@@ -1,5 +1,5 @@
 from nonebot import on_command, require
-from nonebot.adapters.onebot.v11 import (
+from nonebot.adapters.onebot.v12 import (
     GroupMessageEvent,
     Message,
     MessageEvent,
