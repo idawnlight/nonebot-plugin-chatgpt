@@ -12,7 +12,7 @@ from typing import (
 )
 
 from nonebot import on_command, on_message
-from nonebot.adapters.onebot.v11 import GROUP, GroupMessageEvent, MessageEvent
+from nonebot.adapters.onebot.v12 import GROUP, GroupMessageEvent, MessageEvent
 from nonebot.matcher import Matcher
 from nonebot.params import Depends
 from nonebot.rule import to_me
