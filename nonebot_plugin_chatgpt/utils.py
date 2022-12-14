@@ -28,12 +28,12 @@ def cooldow_checker(cd_time: int) -> Any:
         matcher: Matcher, event: MessageEvent
     ) -> AsyncGenerator[None, None]:
         cooldown_time = cooldown[event.user_id] + cd_time
-        if event.time < cooldown_time:
+        if event.time.timestamp() < cooldown_time:
             await matcher.finish(
-                f"ChatGPT 冷却中，剩余 {cooldown_time - event.time} 秒", at_sender=True
+                f"ChatGPT 冷却中，剩余 {cooldown_time - event.time.timestamp()} 秒", at_sender=True
             )
         yield
-        cooldown[event.user_id] = event.time
+        cooldown[event.user_id] = event.time.timestamp()
 
     return Depends(check_cooldown)
 
