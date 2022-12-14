@@ -152,7 +152,7 @@ class Chatbot:
                 )
             try:
                 if response.status_code == 403:
-                    logger.opt(colors=True, exception=e).error(
+                    logger.error(
                         f"刷新会话失败: <r>HTTP{response.status_code}</r> {escape_tag(response.text)}，尝试重新获取 cf_clearance"
                     )
                     await self.get_cf_cookies()
