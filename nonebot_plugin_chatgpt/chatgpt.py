@@ -8,6 +8,7 @@ from nonebot.log import logger
 from nonebot.utils import escape_tag, run_sync
 from playwright.async_api import async_playwright
 from typing_extensions import Self
+from urllib.parse import urlparse
 
 try:
     import ujson as json
@@ -195,11 +196,14 @@ class Chatbot:
         logger.debug("正在获取cf cookies")
         async with async_playwright() as p:
             try:
+                proxies = urlparse(self.proxies) if self.proxies else None
                 browser = await p.firefox.launch(
                     headless=True,
-                    proxy={"server": self.proxies}
-                    if self.proxies
-                    else None,  # your proxy
+                    proxy={
+                        "server": proxies.scheme + "://" + proxies.netloc,
+                        "username": proxies.username,
+                        "password": proxies.password,
+                    } if proxies else None,  # your proxy
                 )
             except Exception as e:
                 logger.opt(exception=e).error(
